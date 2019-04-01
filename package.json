@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "unit": "jasmine ./test/unit/**/*.spec.js"
+    "unit": "jasmine ./**/*.spec.js"
   },
   "author": "Maksim Yakusik",
   "license": "ISC",
