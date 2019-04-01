@@ -1,0 +1,13 @@
+{
+  "name": "structures-and-algorithms",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "unit": "jasmine ./test/unit/**/*.spec.js"
+  },
+  "author": "Maksim Yakusik",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^3.3.1"
+  }
+}
