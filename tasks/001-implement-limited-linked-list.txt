@@ -1,0 +1,6 @@
+Реализовать методы в limited-linked-list (\structures-and-algorithms\src\structures\linked-list\limited-linked-list.js)
+так что бы тесты в limited-linked-list.spec (\structures-and-algorithms\test\unit\structures\linked-list\limited-linked-list.spec.js)
+проходили успешно. Для того чтобы тесты запускались нужно заменив 'xit' на 'it'.
+
+Основная идея limited-linked-list - связанный список с ограничением по каличеству узлов.
+Более детально ожидаемое поведение можно понять из реализованных тестов.
