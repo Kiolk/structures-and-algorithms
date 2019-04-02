@@ -1,4 +1,5 @@
 const LinkedList = require('./linked-list');
+const Node = require('./linked-list').Node
 
 module.exports = LimitedLinkedList;
 
@@ -13,47 +14,128 @@ function LimitedLinkedList(limit) {
     const self = this;
     const parent = { ...this };
 
-    let count = 0;
+    self.count = 0;
+    self.limit = limit;
 
     /**
      * @override
      */
     self.unshift = function (...items) {
-        // write code here
+        for (var index = items.length - 1; index >= 0; --index) {
+            const item = items[index];
+
+            let node = new Node(item, null, self._first)
+
+            if (!self._first) {
+                self._last = node;
+            } else {
+                self._first.prev = node;
+            }
+
+            self._first = node;
+            
+            ++self.count;
+
+            if (self.count > self.limit) {
+                self._last = self._last.prev;
+                if (!self._last) {
+                    self_first = null;
+                } else {
+                    self._last.next = null
+                }
+                --self.count;
+            }
+        }
     };
 
     /**
      * @override
      */
     self.unshiftAll = function (items) {
-        // write code here
+        self.unshift.apply(self, items);
     };
 
     /**
      * @override
      */
     self.push = function (...items) {
-        // write code here
+        for (var index = 0; index < items.length; ++index) {
+            let item = items[index];
+
+            let node = new Node(item, self._last, null);
+
+            if (!self._last) {
+                self._first = node;
+            } else {
+                self._last.next = node;
+            }
+
+            self._last = node;
+
+            ++self.count;
+
+            if (self.count > self.limit) {
+                self._first = self._first.next;
+                if (self._first) {
+                    self._first.prev = null;
+                } else {
+                    self._last = null;
+                }
+                --self.count;
+            }
+        }
     };
 
     /**
      * @override
      */
     self.pushAll = function (items) {
-        // write code here
+        self.push.apply(self, items);
     };
 
     /**
      * @override
      */
     self.shift = function () {
-        // write code here
+        let node = self._first;
+
+        if (!self._first) {
+            return node;
+        }
+
+        if (self._first == self._last) {
+            self._first = null;
+            self._last = null;
+        } else {
+            self._first = self._first.next;
+            self._first.prev = null;
+        }
+
+        --self.count;
+
+        return node.value;
     };
 
     /**
      * @override
      */
     self.pop = function () {
-        // write code here
+        let node = self._last;
+
+        if (!self._last) {
+            return node;
+        }
+
+        if (self._first == self._last) {
+            self._first = null;
+            self._last = null;
+        } else {
+            self._last = self._last.prev;
+            self._last.next = null;
+        }
+
+        --self.count;
+        
+        return node.value;
     };
 }

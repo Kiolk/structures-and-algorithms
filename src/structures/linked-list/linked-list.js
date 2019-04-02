@@ -230,3 +230,4 @@ function Node(value, prev, next) {
     this.prev = prev;
     this.next = next;
 }
+module.exports.Node = Node;

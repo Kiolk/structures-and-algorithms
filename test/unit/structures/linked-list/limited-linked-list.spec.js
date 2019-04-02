@@ -7,7 +7,7 @@ describe('limited-linked-list', () => {
         limitedLinkedList = new LimitedLinkedList(3);
     });
 
-    xit('unshift', () => {
+    it('unshift', () => {
         limitedLinkedList.unshift(1, 2, 3);
         expect(limitedLinkedList.toArray()).toEqual([1, 2, 3]);
 
@@ -21,7 +21,7 @@ describe('limited-linked-list', () => {
         expect(limitedLinkedList.toArray()).toEqual([9, 6, 7]);
     });
 
-    xit('unshiftAll', () => {
+    it('unshiftAll', () => {
         limitedLinkedList.unshiftAll([1, 2, 3]);
         expect(limitedLinkedList.toArray()).toEqual([1, 2, 3]);
 
@@ -35,7 +35,7 @@ describe('limited-linked-list', () => {
         expect(limitedLinkedList.toArray()).toEqual([9, 6, 7]);
     });
 
-    xit('push', () => {
+    it('push', () => {
         limitedLinkedList.push(1, 2, 3);
         expect(limitedLinkedList.toArray()).toEqual([1, 2, 3]);
 
@@ -49,7 +49,7 @@ describe('limited-linked-list', () => {
         expect(limitedLinkedList.toArray()).toEqual([7, 8, 9]);
     });
 
-    xit('pushAll', () => {
+    it('pushAll', () => {
         limitedLinkedList.pushAll([1, 2, 3]);
         expect(limitedLinkedList.toArray()).toEqual([1, 2, 3]);
 
@@ -63,7 +63,7 @@ describe('limited-linked-list', () => {
         expect(limitedLinkedList.toArray()).toEqual([7, 8, 9]);
     });
 
-    xit('shift', () => {
+    it('shift', () => {
         limitedLinkedList.pushAll([1, 2, 3]);
         expect(limitedLinkedList.toArray()).toEqual([1, 2, 3]);
 
@@ -80,7 +80,7 @@ describe('limited-linked-list', () => {
         expect(limitedLinkedList.toArray()).toEqual([4, 5, 6]);
     });
 
-    xit('pop', () => {
+    it('pop', () => {
         limitedLinkedList.pushAll([1, 2, 3]);
         expect(limitedLinkedList.toArray()).toEqual([1, 2, 3]);
 
