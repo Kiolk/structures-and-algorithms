@@ -19,6 +19,9 @@ describe('limited-linked-list', () => {
 
         limitedLinkedList.unshift(9);
         expect(limitedLinkedList.toArray()).toEqual([9, 6, 7]);
+
+        limitedLinkedList.unshift(9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+        expect(limitedLinkedList.toArray()).toEqual([9, 1, 1]);
     });
 
     it('unshiftAll', () => {
@@ -47,6 +50,9 @@ describe('limited-linked-list', () => {
 
         limitedLinkedList.push(9);
         expect(limitedLinkedList.toArray()).toEqual([7, 8, 9]);
+
+        limitedLinkedList.push(1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 9, 9, 9, 9, 8, 9);
+        expect(limitedLinkedList.toArray()).toEqual([9, 8, 9]);
     });
 
     it('pushAll', () => {

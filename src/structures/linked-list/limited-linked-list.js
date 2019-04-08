@@ -1,5 +1,4 @@
 const LinkedList = require('./linked-list');
-const Node = require('./linked-list').Node
 
 module.exports = LimitedLinkedList;
 
@@ -21,29 +20,16 @@ function LimitedLinkedList(limit) {
      * @override
      */
     self.unshift = function (...items) {
-        for (var index = items.length - 1; index >= 0; --index) {
-            const item = items[index];
-
-            let node = new Node(item, null, self._first)
-
-            if (!self._first) {
-                self._last = node;
+        let unshiftedItems = items;
+        if (items.length > self.limit) {
+            unshiftedItems = items.slice(0, self.limit);
+        }
+        for (let index = unshiftedItems.length - 1; index >= 0; --index) {
+            parent.unshift(unshiftedItems[index]);
+            if (self.limit == self.count) {
+                parent.pop();
             } else {
-                self._first.prev = node;
-            }
-
-            self._first = node;
-            
-            ++self.count;
-
-            if (self.count > self.limit) {
-                self._last = self._last.prev;
-                if (!self._last) {
-                    self_first = null;
-                } else {
-                    self._last.next = null
-                }
-                --self.count;
+                ++self.count;
             }
         }
     };
@@ -59,29 +45,17 @@ function LimitedLinkedList(limit) {
      * @override
      */
     self.push = function (...items) {
-        for (var index = 0; index < items.length; ++index) {
-            let item = items[index];
+        let pushedItems = items;
+        if (items.length > self.limit) {
+            pushedItems = items.slice(items.length - self.limit)
+        }
 
-            let node = new Node(item, self._last, null);
-
-            if (!self._last) {
-                self._first = node;
+        for (let index = 0; index < pushedItems.length; ++index) {
+            parent.push(pushedItems[index]);
+            if (self.count == self.limit) {
+                parent.shift();
             } else {
-                self._last.next = node;
-            }
-
-            self._last = node;
-
-            ++self.count;
-
-            if (self.count > self.limit) {
-                self._first = self._first.next;
-                if (self._first) {
-                    self._first.prev = null;
-                } else {
-                    self._last = null;
-                }
-                --self.count;
+                ++self.count
             }
         }
     };
@@ -97,45 +71,19 @@ function LimitedLinkedList(limit) {
      * @override
      */
     self.shift = function () {
-        let node = self._first;
-
-        if (!self._first) {
-            return node;
-        }
-
-        if (self._first == self._last) {
-            self._first = null;
-            self._last = null;
-        } else {
-            self._first = self._first.next;
-            self._first.prev = null;
-        }
-
+        let node = parent.shift();
         --self.count;
 
-        return node.value;
+        return node;
     };
 
     /**
      * @override
      */
     self.pop = function () {
-        let node = self._last;
-
-        if (!self._last) {
-            return node;
-        }
-
-        if (self._first == self._last) {
-            self._first = null;
-            self._last = null;
-        } else {
-            self._last = self._last.prev;
-            self._last.next = null;
-        }
-
+        let node = parent.pop();
         --self.count;
-        
-        return node.value;
+
+        return node;
     };
 }
