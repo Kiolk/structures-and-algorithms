@@ -13,47 +13,77 @@ function LimitedLinkedList(limit) {
     const self = this;
     const parent = { ...this };
 
-    let count = 0;
+    self.count = 0;
+    self.limit = limit;
 
     /**
      * @override
      */
     self.unshift = function (...items) {
-        // write code here
+        let unshiftedItems = items;
+        if (items.length > self.limit) {
+            unshiftedItems = items.slice(0, self.limit);
+        }
+        for (let index = unshiftedItems.length - 1; index >= 0; --index) {
+            parent.unshift(unshiftedItems[index]);
+            if (self.limit == self.count) {
+                parent.pop();
+            } else {
+                ++self.count;
+            }
+        }
     };
 
     /**
      * @override
      */
     self.unshiftAll = function (items) {
-        // write code here
+        self.unshift.apply(self, items);
     };
 
     /**
      * @override
      */
     self.push = function (...items) {
-        // write code here
+        let pushedItems = items;
+        if (items.length > self.limit) {
+            pushedItems = items.slice(items.length - self.limit)
+        }
+
+        for (let index = 0; index < pushedItems.length; ++index) {
+            parent.push(pushedItems[index]);
+            if (self.count == self.limit) {
+                parent.shift();
+            } else {
+                ++self.count
+            }
+        }
     };
 
     /**
      * @override
      */
     self.pushAll = function (items) {
-        // write code here
+        self.push.apply(self, items);
     };
 
     /**
      * @override
      */
     self.shift = function () {
-        // write code here
+        let node = parent.shift();
+        --self.count;
+
+        return node;
     };
 
     /**
      * @override
      */
     self.pop = function () {
-        // write code here
+        let node = parent.pop();
+        --self.count;
+
+        return node;
     };
 }
